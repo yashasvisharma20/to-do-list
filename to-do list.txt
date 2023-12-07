@@ -1,0 +1,110 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+const int Max_task = 10;
+
+struct Task {
+    string title;
+    string description;
+    bool completed;
+};
+
+int main() {
+    Task task[Max_task];
+    int numTask = 0;
+    int opt;
+
+    // Display Menu
+    cout << "To-Do list-Menu" << endl;
+    cout << "1. Add Task" << endl;
+    cout << "2. Remove Task" << endl;
+    cout << "3. Display Task" << endl;
+    cout << "4. Mark Task As Complete" << endl;
+    cout << "5. Exit" << endl;
+
+    bool continueLoop = true;
+    while (true) {
+        cout << "Enter your option: ";
+        cin >> opt;
+        switch (opt) {
+            case 1: {
+                // Adding tasks
+                if (numTask < Max_task) {
+                    cout << "Enter Task Title: ";
+                    cin.ignore();
+                    getline(cin, task[numTask].title);
+                    cout << endl;
+                    cout << "Enter Task Description: ";
+                    getline(cin, task[numTask].description);
+                    cout << endl;
+                    task[numTask].completed = false;
+                    cout << "Task Add successfully" << endl;
+                    numTask++;
+                } else {
+                    cout << "Maximum number of tasks reached." << endl;
+                }
+                continue;
+            }  // Close the case 1 brace here
+
+            case 2: {
+                // Remove Tasks
+                if (numTask > 0) {
+                    int taskIndex;
+                    cout << "Enter index of the task from (0 to " << (numTask - 1) << "): ";
+                    cin >> taskIndex;
+                    // Shift tasks
+                    if (taskIndex >= 0 && taskIndex < numTask) {
+                        for (int i = taskIndex; i < numTask - 1; i++) {
+                            task[i] = task[i + 1];
+                        }
+                        numTask--;
+                        cout << "Removed Task Successfully" << endl;
+                    } else {
+                        cout << "Invalid Task Index. Try again" << endl;
+                    }
+                    break;
+                } else {
+                    cout << "No Task To Remove" << endl;
+                }
+                continue;
+            }  // Close the case 2 brace here
+
+            case 3: {
+    // Display tasks
+    if (numTask > 0) {
+        cout << "Tasks:" << endl;
+        for (int i = 0; i < numTask; i++) {
+            cout << "[Pending] " << task[i].title << " - " << task[i].description;
+            cout << "" << endl;
+        }
+    } else {
+        cout << "There is no task" << endl;
+    }
+    continue;
+}
+
+            
+            case 4:{
+                int taskIndex;
+                cout<<"Enter the index of the task (0 to "<<(numTask-1)<<"): ";
+                cin>>taskIndex;
+                cout<<"[Completed]"<<task[taskIndex].title<<" - "<<task[taskIndex].description;
+                cout<<""<<endl;
+                continue;
+            }
+            
+            case 5:{
+                break;
+            }
+
+            default:
+                cout << "Invalid option. Try again" << endl;
+                cout<<""<<endl;
+                continue;
+        }  // Close the switch brace here
+        break;
+    }  // Close the while brace here
+
+    return 0;
+}
